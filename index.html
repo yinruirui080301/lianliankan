@@ -42,6 +42,7 @@
         this.dom.empty();  //清空dom,也就是<div>的<img>孩子
         var cav_="<canvas width='"+this.size+"' height='"+this.size+"'></canvas>";
         this.dom.html(cav_); //为清空的dom加个画布，为了画线。（擦除图片时要画线）
+        this.ranImage="";
     }
     Block.prototype.edgeErase=function(){
         this.dom.empty();
@@ -55,7 +56,6 @@
         context.beginPath();
         context.moveTo(this.size/2,this.size/2);
         context.lineTo(this.size/2,0);
-        //context.fillStyle="lightgrey";
         context.stroke();
     }
     //在当前方块中，画中心点到下边中点的连线
@@ -64,7 +64,6 @@
         context.beginPath();
         context.moveTo(this.size/2,this.size/2);
         context.lineTo(this.size/2,this.size);
-        //context.fillStyle="lightgrey";
         context.stroke();
     }
     //在当前方块中，画中心点到左边中点的连线
@@ -73,7 +72,6 @@
         context.beginPath();
         context.moveTo(this.size/2,this.size/2);
         context.lineTo(0,this.size/2);
-       // context.fillStyle="lightgrey";
         context.stroke();
     }
     //在当前方块中，画中心点到右边中点的连线
@@ -82,7 +80,6 @@
         context.beginPath();
         context.moveTo(this.size / 2, this.size / 2);
         context.lineTo(this.size, this.size / 2);
-       // context.fillStyle = "lightgrey";
         context.stroke();
     }
 
@@ -451,8 +448,7 @@
                 }
                 return;
             }
-            if (clickNumber == 1) {
-                clickNumber = 2;
+            if (clickNumber == 1){
                 for (let i = 1; i < places.length; i++) {
                     for (let j = 1; j < places[i].length; j++) {
                         if (places[i][j].dom.css("left") == $(this).css("left") && places[i][j].dom.css("top") == $(this).css("top")) {
@@ -461,7 +457,7 @@
                         }
                     }
                 }
-                if (clickObject2.ranImage == clickObject1.ranImage && clickObject1 != clickObject2) {
+                if (clickObject2!=undefined&&clickObject1!=undefined&&clickObject2.ranImage == clickObject1.ranImage && clickObject1 != clickObject2) {
                     var paths = canCancel1(clickObject1.row, clickObject1.col, clickObject2.row, clickObject2.col);
                     if (paths.length == 0) {
                         paths = canCancel2(clickObject1.row, clickObject1.col, clickObject2.row, clickObject2.col);
